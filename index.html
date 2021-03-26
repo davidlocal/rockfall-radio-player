@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Listen to Rockfall Radio</title>
+
+    <script src="//radio.rockfall.tk/jquery-1.11.2.min.js"></script>
+    <script language="javascript" type="text/javascript" src="https://cdn2.cloudrad.io/rockfallradio/1/streaminfo.js"></script>
+
+
+<script>
+	function updateHistory(historyData)
+	{	
+		var nowplayingData = historyData[0];
+		
+		var currentTrack = $('#track').html();
+		var currentArtist = $('#artist').html();
+
+		if (currentTrack != nowplayingData.Track.Title && currentArtist != nowplayingData.ArtistName)
+		{	
+			$('#stationname').html(nowplayingData.Station.Name);
+			$('#stationslogan').html(nowplayingData.Station.Slogan);
+			$('#track').html(nowplayingData.Track.Title);
+			$('#artist').html(nowplayingData.Track.ArtistName);
+			$('#duration').html(nowplayingData.Track.Duration);
+			$('#album').html(nowplayingData.Album.Title);
+			$('#albumart').attr('src', nowplayingData.Album.ArtworkUrl + '/360/360');
+		
+			$('#history').empty();
+			
+			jQuery.each(historyData, function(i, val)
+                                           { 
+		                             if (val != 0 && val.Album.ArtworkUrl != '')
+				{ 					
+                                                                        $('#history').append('');
+				}
+			});		
+		}
+	}
+
+	function updateAll()
+	{	
+		getHistoryData();			
+		setTimeout(function() { updateAll(); }, 10000);		
+	}
+	
+	function getHistoryData()
+	{
+		$.ajax('https://cdn.rockfall.tk/history', 
+			{
+				type: 'GET',
+				dataType: 'json',
+				success: (function (resp)
+				{
+					updateHistory(resp);
+				}),
+				error: function (req, status, error)
+				{
+				}
+			}
+		)		
+	}
+
+$(function() { updateAll(); });
+</script>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="favicons/favicons-apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicons-favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicons/favicons-favicon-16x16.png">
+
+    
+    <meta name="Description" content="Your favorite Positive Hits, anytime, anywhere! This is Rockfall Radio.">
+    <meta property="og:title" content="Listen to Rockfall Radio">
+    <meta property="og:description" content="Your favorite Positive Hits, anytime, anywhere! This is Rockfall Radio.">
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    
+    
+        <link rel="stylesheet" href="css/css-klove.min.css">
+    
+    
+
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Days+One" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
+
+    <script src="js/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="js/1.12.1-jquery-ui.js"></script>
+    <script src="js/signalr-signalr.min.js"></script>
+    <script src="js/js-emf-player.min.js"></script>
+    <script src="js/8.13.4-jwplayer.js"></script>
+    <script src="js/6.7.4-sp.min.js"></script>
+
+ 
+
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<section class="masthead">
+    <!-- NAVBAR -->
+    <div class="container">
+        <div class="row d-flex align-items-center justify-content-between">
+            <div class="col-6 col-lg-4">
+                <a href="https://www.klove.com" class="logo-link" target="_blank"><img src="images/images-logo-container.png" alt="network logo" class="brand-logo"></a>
+            </div>
+            <div class="col col-lg-4 d-none d-lg-block">
+                <div class="text-center">
+                    <div class="dropdown">
+                        <button class="btn btn-glass menuNormal" type="button" id="dropdownChannelsButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-angle-down mr-2" alt="change channels"></i>MENU</button>
+                        <div class="dropdown-menu w-100 shadow text-center" aria-labelledby="dropdownChannelsButton">
+                                <a data-tealium_event="player" data-event_action="click" data-event_category="player (web)" data-event_label="Back to Website" data-event_location="header" class="dropdown-item" href="https://radio.rockfall.tk">
+                                    Back to Website
+                                </a>
+                                <a data-tealium_event="player" data-event_action="click" target="_blank" data-event_category="player (web)" data-event_label="Song Requests" data-event_location="header" class="dropdown-item" href="https://radio.rockfall.tk/requests">
+                                    Song Requests
+                                </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6 col-lg-4">
+                <div class="text-right">
+                    <a href="https://rockfall.tk/give" class="btn btn-glass" target="_blank">Give to Rockfall Music</a>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="pb-lg-5">
+        <div class="container py-3 py-lg-5">
+            <div class="row justify-content-center">
+
+                <!-- Channels Mobile -->
+                <div class="col-12 d-lg-none">
+                    <div class="text-center">
+                        <div class="dropdown mb-4">
+                            <button class="btn btn-block btn-glass menuNormal" type="button" id="dropdownChannelsButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" alt="change channels"><i class="fas fa-angle-down mr-2"></i>CHANNELS</button>
+                            <div class="dropdown-menu w-100 shadow text-center" aria-labelledby="dropdownChannelsButton">
+                                    <a data-tealium_event="player" data-event_action="click" data-event_category="player (web)" data-event_label="Live" data-event_location="header" class="dropdown-item" href="Live.html">
+                                        Live
+                                    </a>
+                                    <a data-tealium_event="player" data-event_action="click" data-event_category="player (web)" data-event_label="Christmas" data-event_location="header" class="dropdown-item" href="Christmas.html">
+                                        Christmas
+                                    </a>
+                                    <a data-tealium_event="player" data-event_action="click" data-event_category="player (web)" data-event_label="90s" data-event_location="header" class="dropdown-item" href="90s.html">
+                                        90s
+                                    </a>
+                                    <a data-tealium_event="player" data-event_action="click" data-event_category="player (web)" data-event_label="2000s" data-event_location="header" class="dropdown-item" href="2000s.html">
+                                        2000s
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    <div id="nowPlaying" class="col-5 col-lg-4">
+                        <div id="now-playing-image-wrapper" class="shadow">
+                        <img id="albumart" class="img-fluid w-100 shadow album-art">
+                        </div>
+
+                        <div class="row justify-content-center d-none d-lg-inline">
+                            <div class="col-12 text-center">
+                                <a id="nowPlaying-songLink" href="#" class="btn text-white ml-2 op-50" data-toggle="tooptip" data-placement="bottom" data-click_label="Song" data-click_category="link" title="">
+                                    <i class="fas fa-music"></i>
+                                </a>
+                                <a id="nowPlaying-artistLink" href="#" class="btn text-white ml-2 op-50" data-toggle="tooltip" data-placement="bottom" data-click_label="Artist Info" data-click_category="link" title="">
+                                    <i class="fas fa-user"></i>
+                                </a>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col-7 col-lg-8 d-flex align-items-center">
+                        <div class="pl-lg-5 mt-lg-n5 ml-n2">
+                            <p class="text-white op-50 mb-2 text-space now-play">LIVE</p>
+
+                            <h2 id="nowPlaying-title" data-songid="188329" data-automationid="9fb9549b-a2e7-4725-a087-a6421447352d" class="display-4 text-white player-text"><span id="track"></span></h2>
+
+                            <h2 id="nowPlaying-artist" data-artistid="178851" class="text-white player-text"><span id="artist"></span></h2>
+
+                            <button data-tealium_event="player" data-event_action="play" data-event_category="Player (web)" data-event_label="K-LOVE Web Player" data-event_location="header" class="audio-control-button btn btn-light btn-play font-weight-bold shadow d-none d-lg-inline mb-4 px-5 mt-5">
+                                <i class="fas fa-play mr-3 text-third"></i>
+                                PLAY
+                            </button>
+                            <audio id="audio-player" preload="none"></audio>
+                            <br>
+                            <div id="volumeControl" class="d-none d-lg-block">
+                                <i class="icon-vol-loud"></i>
+                                <div id="volume"></div>
+                            </div>
+
+                            <h5 class="text-white d-none d-lg-block locationText">Stream status: <span id="stream_info_source">Loading...</span></h5>
+                        </div>
+                    </div>
+
+                <div class="col-12 d-lg-none">
+                    <button data-tealium_event="player" data-event_action="play" data-event_category="Player (web)" data-event_label="K-LOVE Web Player" data-event_location="header" class="audio-control-button btn btn-block btn-light font-weight-bold shadow mt-4 py-3">
+                        <i class="fas fa-play mr-3 text-third"></i>
+                        PLAY
+                    </button>
+                </div>
+                <div class="col-4 d-lg-none mobile-controls">
+                    <a id="nowPlaying-songLink-mobile" href="https://www.klove.com/music/artists/mercyme/say-i-wont" data-click_category="link" data-click_label="Song" class="btn btn-block mt-2 text-white op-50" target="_blank">
+                        <i class="fas fa-music mr-sm-3"></i>
+                        Song
+                    </a>
+
+                </div>
+                <div class="col-4 d-lg-none mobile-controls">
+
+                    <a id="nowPlaying-artistLink-mobile" href="https://www.klove.com/music/artists/mercyme" data-click_category="link" data-click_label="Artist" class="btn btn-block mt-2 text-white op-50" target="_blank">
+                        <i class="fas fa-user mr-sm-3"></i>
+                        Artist
+                    </a>
+
+                </div>
+
+                <div class="col-4 d-lg-none mobile-controls">
+
+                    <div id="social-dropdown-mobile" class="dropdown">
+                        <button data-click_category="link" data-click_label="Sharee" class="btn btn-block mt-2 text-white op-50" type="button" id="dropdownShareButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-share-square mr-sm-3"></i>
+                            Share
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right shadow" aria-labelledby="dropdownShareButton">
+
+                            <a id="nowPlaying-artistFacebook-dropdown-mobile" class="dropdown-item" href="https://www.facebook.com/mercyme" target="_blank"><i class="fab fa-facebook-square mr-3"></i>Facebook</a>
+
+                            <a id="nowPlaying-artistTwitter-dropdown-mobile" class="dropdown-item" href="https://twitter.com/mercyme" target="_blank"><i class="fab fa-twitter-square mr-3"></i>Twitter</a>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 d-lg-none">
+                    <p class="text-white text-center mb-0 font-weight-bold border-top-op pt-4 locationText">Seattle, WA 104.5 FM</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- LAST PLAYED -->
+<section class="last-played">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-12">
+                <p class="section-title">LAST PLAYED</p>
+            </div>
+<div class="col-12 col-lg-3">
+                            <div class="bg-light my-2 diffuse song-card">
+                                <div class="row no-gutters d-flex align-items-center">
+                                    <div class="col-3 col-lg-4">
+                                        <div class="song-img-wrapper">
+                                                <span id="history-albumart-1"</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-9 col-lg-8">
+                                        <div class="px-3 song-text mb-1">
+                                            <span class="song-title font-weight-bold text-dark"><span id="history-track-1"</span></span>
+                                        </div>
+                                        <div class="px-3 song-text">
+                                            <span class="song-artist text-dark"><span id="history-artist-1"</span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+<div class="col-12 col-lg-3">
+                            <div class="bg-light my-2 diffuse song-card">
+                                <div class="row no-gutters d-flex align-items-center">
+                                    <div class="col-3 col-lg-4">
+                                        <div class="song-img-wrapper">
+                                                <span id="history-albumart-2"</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-9 col-lg-8">
+                                        <div class="px-3 song-text mb-1">
+                                            <span class="song-title font-weight-bold text-dark"><span id="history-track-2"</span></span>
+                                        </div>
+                                        <div class="px-3 song-text">
+                                            <span class="song-artist text-dark"><span id="history-artist-2"</span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+<div class="col-12 col-lg-3">
+                            <div class="bg-light my-2 diffuse song-card">
+                                <div class="row no-gutters d-flex align-items-center">
+                                    <div class="col-3 col-lg-4">
+                                        <div class="song-img-wrapper">
+                                                <span id="history-albumart-3"</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-9 col-lg-8">
+                                        <div class="px-3 song-text mb-1">
+                                            <span class="song-title font-weight-bold text-dark"><span id="history-track-3"</span></span>
+                                        </div>
+                                        <div class="px-3 song-text">
+                                            <span class="song-artist text-dark"><span id="history-artist-3"</span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+<div class="col-12 col-lg-3">
+                            <div class="bg-light my-2 diffuse song-card">
+                                <div class="row no-gutters d-flex align-items-center">
+                                    <div class="col-3 col-lg-4">
+                                        <div class="song-img-wrapper">
+                                                <span id="history-albumart-4"</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-9 col-lg-8">
+                                        <div class="px-3 song-text mb-1">
+                                            <span class="song-title font-weight-bold text-dark"><span id="history-track-4"</span></span>
+                                        </div>
+                                        <div class="px-3 song-text">
+                                            <span class="song-artist text-dark"><span id="history-artist-4"</span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<div class="footer full-width" style="margin-top:100px;">
+<section id="signup-section" class="py-4" style="background-color: #ebedf0;">
+<form id="signup-form" action="/Home/GeneralSignup" method="post">
+<div class="container">
+<div class="row justify-content-center d-flex align-items-center">
+<div class="col-11 col-lg-4 my-2">
+<h4 class="font-weight-bold text-center">Click here
+to view our official radio schedule!</h4>
+</div>
+<div class="col-11 col-lg-2 my-2">
+<a href="https://radio.rockfall.tk/schedule" target="_blank" button="" class="btn btn-primary btn-block">View Schedule
+</a></div></div></div></form></section>
+<div class="container">
+<div class="row justify-content-center d-flex align-items-center">
+
+
+</div>
+<div class="row">
+<div class="col my-4">
+<small>
+</small><p class="text-center text-muted mb-1">Rockfall Radio is a service of Rockfall Music.</p>
+<p class="text-center text-muted mb-1">
+© Rockfall Music. All Rights Reserved.
+</p>
+
+</div>
+</div>
+</div>
+</div>
+
+<input name="__RequestVerificationToken" type="hidden" value="CfDJ8MfXwNQe7qhKpqBJEh2rL4HUPGkT58q8kuQhujvF7afxlWRyanfO1EZuK3kEbR_i5EGzE7Tgq5IIVvx7c59AE-ULBpyuwNt2mi9PX6YAlSoCoIT0RSI3v1G4EpoVIFN34kpQ_09ZDZKPJTWQna_4MT0">
+<!-- FOOTER END -->
+
+<div style="display:none;">
+    <div id="jwPlayerTag"></div>
+</div>
+
+
+
+    <script src="js/umd-popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="js/js-bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+    
+
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+
+    
+    
+</body>
+</html>
