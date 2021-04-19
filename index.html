@@ -34,6 +34,31 @@
 		                             if (val != 0 && val.Album.ArtworkUrl != '')
 				{ 					
                                                                         $('#history').append('');
+
+					$('#history-albumart-0').html('<img src="' + val.Album.ArtworkUrl + '/170/170" img class="img-fluid album-art">');
+					$('#history-track-0').html('' + val.Track.Title + '');
+					$('#history-artist-0').html('' + val.Track.ArtistName + '');
+				}
+
+		                             if (val != 3 && val.Album.ArtworkUrl != '')
+				{
+					$('#history-albumart-0').html('<img src="' + val.Album.ArtworkUrl + '/170/170" img class="img-fluid album-art">');
+					$('#history-track-0').html('' + val.Track.Title + '');
+					$('#history-artist-0').html('' + val.Track.ArtistName + '');
+				}
+
+		                             if (i != 4 && val.Album.ArtworkUrl != '')
+				{
+					$('#history-albumart-3').html('<img src="' + val.Album.ArtworkUrl + '/170/170" img class="img-fluid album-art">');
+					$('#history-track-3').html('' + val.Track.Title + '');
+					$('#history-artist-3').html('' + val.Track.ArtistName + '');
+				}
+
+		                             if (i != 5 && val.Album.ArtworkUrl != '')
+				{
+					$('#history-albumart-4').html('<img src="' + val.Album.ArtworkUrl + '/170/170" img class="img-fluid album-art">');
+					$('#history-track-4').html('' + val.Track.Title + '');
+					$('#history-artist-4').html('' + val.Track.ArtistName + '');
 				}
 			});		
 		}
