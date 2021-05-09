@@ -25,7 +25,7 @@
 			$('#artist').html(nowplayingData.Track.ArtistName);
 			$('#duration').html(nowplayingData.Track.Duration);
 			$('#album').html(nowplayingData.Album.Title);
-			$('#albumart').attr('src', nowplayingData.Album.ArtworkUrl + '/360/360');
+			$('#albumart').attr('src', nowplayingData.Album.Filename + '');
 		
 			$('#history').empty();
 			
@@ -33,28 +33,28 @@
                                            { 
 		                             if (val != 0 && val.Album.ArtworkUrl != '')
 				{ 					
-                                                                        $('#history-albumart-1').html('<img src="' + val.Album.ArtworkUrl + '/170/170" img class="img-fluid album-art">');
+                                                                        $('#history-albumart-1').html('<img src="' + val.Album.Filename + '" img class="img-fluid album-art">');
 					$('#history-track-1').html('' + val.Track.Title + '');
 					$('#history-artist-1').html('' + val.Track.ArtistName + '');
 				}
 
 		                             if (val != 0 && val.Album.ArtworkUrl != '')
 				{
-					$('#history-albumart-2').html('<img src="' + val.Album.ArtworkUrl + '/170/170" img class="img-fluid album-art">');
+					$('#history-albumart-2').html('<img src="' + val.Album.Filename + '" img class="img-fluid album-art">');
 					$('#history-track-2').html('' + val.Track.Title + '');
 					$('#history-artist-2').html('' + val.Track.ArtistName + '');
 				}
 
-		                             if (i != 4 && val.Album.ArtworkUrl != '')
+		                             if (i != 0 && val.Album.ArtworkUrl != '')
 				{
-					$('#history-albumart-3').html('<img src="' + val.Album.ArtworkUrl + '/170/170" img class="img-fluid album-art">');
+					$('#history-albumart-3').html('<img src="' + val.Album.Filename + '" img class="img-fluid album-art">');
 					$('#history-track-3').html('' + val.Track.Title + '');
 					$('#history-artist-3').html('' + val.Track.ArtistName + '');
 				}
 
-		                             if (val != 3 && val.Album.ArtworkUrl != '')
+		                             if (val != 0 && val.Album.ArtworkUrl != '')
 				{
-					$('#history-albumart-4').html('<img src="' + val.Album.ArtworkUrl + '/170/170" img class="img-fluid album-art">');
+					$('#history-albumart-4').html('<img src="' + val.Album.Filename + '" img class="img-fluid album-art">');
 					$('#history-track-4').html('' + val.Track.Title + '');
 					$('#history-artist-4').html('' + val.Track.ArtistName + '');
 				}
